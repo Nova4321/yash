@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track your daily sales — online and offline rupee entries for your business.">
+    <title>₹ Rupee Tracker — Daily Sales Entry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Ambient Background Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header" id="app-header">
+            <div class="header-left">
+                <div class="logo-icon">₹</div>
+                <div>
+                    <h1>Rupee Tracker</h1>
+                    <p class="header-subtitle" id="header-date"></p>
+                </div>
+            </div>
+            <button class="btn-icon" id="btn-clear-all" title="Clear all data">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            </button>
+        </header>
+
+        <!-- Summary Cards -->
+        <section class="summary-section" id="summary-section">
+            <div class="summary-card card-total" id="card-total">
+                <div class="card-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Today's Total</span>
+                    <span class="card-amount" id="total-amount">₹0</span>
+                </div>
+            </div>
+            <div class="summary-card card-online" id="card-online">
+                <div class="card-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Online</span>
+                    <span class="card-amount" id="online-amount">₹0</span>
+                </div>
+            </div>
+            <div class="summary-card card-offline" id="card-offline">
+                <div class="card-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Cash</span>
+                    <span class="card-amount" id="offline-amount">₹0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entry Form -->
+        <section class="entry-section" id="entry-section">
+            <div class="glass-card">
+                <h2 class="section-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    New Entry
+                </h2>
+                <form id="entry-form" autocomplete="off">
+                    <div class="form-row">
+                        <div class="form-group flex-2">
+                            <label for="item-name">Item Name</label>
+                            <input type="text" id="item-name" placeholder="e.g. Cake, Bread, Pastry..." required>
+                        </div>
+                        <div class="form-group flex-1">
+                            <label for="item-qty">Qty</label>
+                            <input type="number" id="item-qty" placeholder="1" min="1" value="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group flex-2">
+                            <label for="item-amount">Amount (₹)</label>
+                            <input type="number" id="item-amount" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group flex-1">
+                            <label>Payment Mode</label>
+                            <div class="toggle-group" id="payment-toggle">
+                                <button type="button" class="toggle-btn active" data-mode="online" id="toggle-online">
+                                    <span class="toggle-dot"></span> Online
+                                </button>
+                                <button type="button" class="toggle-btn" data-mode="offline" id="toggle-offline">
+                                    <span class="toggle-dot"></span> Cash
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" id="btn-add-entry">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add Entry
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Date Filter -->
+        <section class="filter-section" id="filter-section">
+            <div class="filter-bar">
+                <h2 class="section-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    Transactions
+                </h2>
+                <div class="filter-controls">
+                    <input type="date" id="filter-date" class="date-input">
+                    <div class="filter-pills">
+                        <button class="pill active" data-filter="all" id="filter-all">All</button>
+                        <button class="pill" data-filter="online" id="filter-online">Online</button>
+                        <button class="pill" data-filter="offline" id="filter-offline">Cash</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transactions List -->
+        <section class="transactions-section" id="transactions-section">
+            <div id="transactions-list" class="transactions-list">
+                <!-- Transactions injected here -->
+            </div>
+            <div class="empty-state" id="empty-state">
+                <div class="empty-icon">📋</div>
+                <p>No entries yet. Start adding your sales!</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Confirm Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-card">
+            <h3>Clear All Data?</h3>
+            <p>This will permanently delete all your entries. This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn-danger" id="modal-confirm">Delete All</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
